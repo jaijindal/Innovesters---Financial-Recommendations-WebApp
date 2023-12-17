@@ -1,0 +1,39 @@
+// VIRTUAL ENV //
+cd root/backend-venv/bin
+source activate
+cd ..
+cd ..
+cd backend/MainApp
+
+// CELERY //
+celery -A MainApp worker --loglevel=info
+celery -A MainApp purge
+
+// ASGI //
+daphne -b 0.0.0.0 -p 8001 MainApp.asgi:application
+daphne -u /tmp/daphne.sock MainApp.asgi:application
+
+// MARCUS //
+cd backend-venv/bin
+source activate
+cd ..
+cd ..
+cd backend/MainApp
+
+// POSTGRESQL //
+sudo -i -u postgres
+psql
+
+systemctl is-active postgresql
+
+
+// PROCESS //
+python3 manage.py runserver 0.0.0.0:8000
+celery -A MainApp worker --loglevel=info
+daphne -b 0.0.0.0 -p 8001 MainApp.asgi:application
+
+pm2 start all
+pm2 restart all
+pm2 logs
+
+

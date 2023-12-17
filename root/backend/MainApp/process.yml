@@ -1,0 +1,19 @@
+apps:
+  - name: daphne
+    script: /home/VMuser/.local/bin/daphne
+    interpreter: python3
+    args: -b 0.0.0.0 -p 8001 MainApp.asgi:application
+    autorestart: true
+    watch: false
+    cwd: /home/VMuser/Desktop/root/backend/MainApp/MainApp
+    env:
+      PYTHONPATH: /home/VMuser/Desktop/root/backend/MainApp
+  - name: celery
+    script: /home/VMuser/.local/bin/celery
+    interpreter: python3
+    args: -A MainApp worker --loglevel=info
+    autorestart: true
+    watch: false
+    cwd: /home/VMuser/Desktop/root/backend/MainApp/MainApp
+    env:
+      PYTHONPATH: /home/VMuser/Desktop/root/backend/MainApp

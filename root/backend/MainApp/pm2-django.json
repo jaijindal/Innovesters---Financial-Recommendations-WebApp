@@ -1,0 +1,10 @@
+{
+    "name": "django-app",
+    "script": "manage.py",
+    "args": ["runserver", "0.0.0.0:8000"],
+    "watch": false,
+    "ignore_watch": ["node_modules", "logs"],
+    "exec_interpreter": "python3",
+    "exec_mode": "fork_mode"
+  }
+  
